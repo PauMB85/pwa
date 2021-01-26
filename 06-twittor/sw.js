@@ -1,11 +1,11 @@
 importScripts('js/sw-utils.js');
 
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const STATIC_CACHE = 'static-v4';
+const DYNAMIC_CACHE = 'dynamic-v2';
 const INMUTABLE_CHACHE = 'inmutable-v1';
 
 const APP_SHELL = [
-    '/',
+    //'/',
     'index.html',
     'css/style.css',
     'img/favicon.ico',
@@ -47,6 +47,9 @@ self.addEventListener('activate', event => {
     const keysCache = caches.keys().then( keys => {
         keys.forEach( key => {
             if(key !== DYNAMIC_CACHE && keys.includes('static')){
+                return caches.delete(key);
+            }
+            if(key !== DYNAMIC_CACHE && keys.includes('dynamic')){
                 return caches.delete(key);
             }
         });
